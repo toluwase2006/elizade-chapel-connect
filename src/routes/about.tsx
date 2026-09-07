@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Heart, Landmark, ShieldCheck, Sprout, Users } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/chapel-fellowship.jpg";
 import communityImage from "@/assets/Subtract.png"
 
 export const Route = createFileRoute("/about")({
@@ -32,15 +31,10 @@ function AboutPage() {
   return (
     <div>
       <section className="bg-navy py-20 text-primary-foreground sm:py-28">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 sm:px-6 md:grid-cols-[1.05fr_0.95fr] md:gap-16">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold">About the Chapel</p>
-            <h1 className="mt-5 max-w-3xl text-balance text-4xl font-medium leading-tight sm:text-6xl">A community committed to knowing Christ, growing together, and serving others.</h1>
-            <p className="mt-7 max-w-2xl text-pretty leading-relaxed text-primary-foreground/70">At Elizade University Chapel, faith and university life meet in a community that welcomes questions, encourages growth, and makes space for every student.</p>
-          </div>
-          <div className="overflow-hidden rounded-lg bg-navy-light ring-1 ring-primary-foreground/10">
-            <img src={heroImage} alt="Students gathered together in fellowship" width={1200} height={900} className="aspect-[4/3] w-full object-cover" />
-          </div>
+        <div className="mx-auto max-w-7xl px-5 sm:px-6">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold">About the Chapel</p>
+          <h1 className="mt-5 max-w-3xl text-balance text-4xl font-medium leading-tight sm:text-6xl">A community committed to knowing Christ, growing together, and serving others.</h1>
+          <p className="mt-7 max-w-2xl text-pretty leading-relaxed text-primary-foreground/70">At Elizade University Chapel, faith and university life meet in a community that welcomes questions, encourages growth, and makes space for every student.</p>
         </div>
       </section>
 

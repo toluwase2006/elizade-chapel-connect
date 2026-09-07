@@ -4,7 +4,6 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
-import heroImage from "@/assets/chapel-hero.jpg";
 import { galleryItems } from "@/lib/chapel-content";
 
 export const Route = createFileRoute("/gallery")({
@@ -38,15 +37,10 @@ function GalleryPage() {
   return (
     <div>
       <section className="bg-navy py-20 text-primary-foreground sm:py-28">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 sm:px-6 md:grid-cols-[1.05fr_0.95fr] md:gap-16">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold">Through the lens</p>
-            <h1 className="mt-5 text-4xl font-medium sm:text-6xl">Chapel gallery</h1>
-            <p className="mt-6 max-w-xl leading-relaxed text-primary-foreground/70">Moments of worship, fellowship, service, and celebration from our university community.</p>
-          </div>
-          <div className="overflow-hidden rounded-lg bg-navy-light ring-1 ring-primary-foreground/10">
-            <img src={heroImage} alt="Worship gathering at Elizade University Chapel" width={1200} height={900} className="aspect-[4/3] w-full object-cover" />
-          </div>
+        <div className="mx-auto max-w-7xl px-5 sm:px-6">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold">Through the lens</p>
+          <h1 className="mt-5 text-4xl font-medium sm:text-6xl">Chapel gallery</h1>
+          <p className="mt-6 max-w-xl leading-relaxed text-primary-foreground/70">Moments of worship, fellowship, service, and celebration from our university community.</p>
         </div>
       </section>
 
