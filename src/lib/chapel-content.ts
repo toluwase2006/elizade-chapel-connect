@@ -1,10 +1,10 @@
 import heroImage from "@/assets/chapel-hero.jpg";
-import prayerImage from "@/assets/chapel-prayer.jpg";
-import worshipImage from "@/assets/chapel-worship.jpg";
-import raisedHandsImage from "@/assets/chapel-raised-hands.jpg";
-import fellowshipImage from "@/assets/chapel-fellowship.jpg";
-import bibleImage from "@/assets/chapel-bible.jpg";
-import choirImage from "@/assets/chapel-choir.jpg";
+import prayerImage from "@/assets/Screenshot 2026-09-07 123631.png";
+import worshipImage from "@/assets/Screenshot 2026-09-07 123827.png";
+import raisedHandsImage from "@/assets/Screenshot 2026-09-07 122204.png";
+import fellowshipImage from "@/assets/Screenshot 2026-09-07 122438.png";
+import bibleImage from "@/assets/Screenshot 2026-09-07 122703.png";
+import choirImage from "@/assets/Screenshot 2026-09-07 123412.png";
 
 export { heroImage };
 

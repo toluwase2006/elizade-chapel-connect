@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Heart, Landmark, ShieldCheck, Sprout, Users } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { galleryItems } from "@/lib/chapel-content";
+import communityImage from "@/assets/Subtract.png"
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -36,6 +36,7 @@ function AboutPage() {
           <h1 className="mt-5 max-w-3xl text-balance text-4xl font-medium leading-tight sm:text-6xl">A community committed to knowing Christ, growing together, and serving others.</h1>
           <p className="mt-7 max-w-2xl text-pretty leading-relaxed text-primary-foreground/70">At Elizade University Chapel, faith and university life meet in a community that welcomes questions, encourages growth, and makes space for every student.</p>
         </div>
+        
       </section>
 
       <section className="bg-card py-20 sm:py-24">
@@ -85,7 +86,7 @@ function AboutPage() {
 
       <section className="bg-site py-20 sm:py-24">
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 sm:px-6 md:grid-cols-2 md:gap-20">
-          <div className="overflow-hidden rounded-lg"><img src={galleryItems[1].image} alt="Students connecting in fellowship on campus" width={900} height={900} loading="lazy" className="aspect-square w-full object-cover" /></div>
+          <div className="overflow-hidden rounded-lg"><img src={communityImage} alt="Students connecting in fellowship on campus" width={900} height={900} loading="lazy" className=" w-full object-cover" /></div>
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold">Our community</p>
             <h2 className="mt-4 text-3xl font-medium text-navy sm:text-4xl">There is a place for you here.</h2>

@@ -7,9 +7,10 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import chapelLogo from "@/assets/download.jpg";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { ChapelFooter, ChapelNav } from "@/components/chapel-layout";
 
@@ -125,6 +126,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <div className="min-h-screen bg-site text-ink">
+        <EntranceOverlay />
         <ChapelNav />
         <main className="pt-16">
           <Outlet />
@@ -132,5 +134,22 @@ function RootComponent() {
         <ChapelFooter />
       </div>
     </QueryClientProvider>
+  );
+}
+
+function EntranceOverlay() {
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => setIsVisible(false), 2000);
+    return () => window.clearTimeout(timeoutId);
+  }, []);
+
+  if (!isVisible) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-navy/70 backdrop-blur-[2px]" aria-label="Loading Elizade University Chapel" role="status">
+      <img src={chapelLogo} alt="Elizade University Chapel" width={170} height={170} className="size-32 animate-chapel-logo-turn rounded-full object-cover ring-4 ring-gold/70 sm:size-40" />
+    </div>
   );
 }

@@ -1,8 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, BookOpen, HeartHandshake, Sparkles, Users } from "lucide-react";
-
+import heroImage from "@/assets/Rectangle 24.png";
 import { Button } from "@/components/ui/button";
-import { activityItems, galleryItems, heroImage, purposeItems } from "@/lib/chapel-content";
+import galleryItems1  from "@/assets/Rectangle 44.png"
+import galleryItems2  from "@/assets/Screenshot 2026-09-07 120042.png"
+import { activityItems, galleryItems, purposeItems } from "@/lib/chapel-content";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -68,8 +70,8 @@ function Index() {
             </Button>
           </div>
           <div className="grid gap-4 md:w-1/2 md:grid-cols-2">
-            <img src={galleryItems[4].image} alt="Students praying together in the chapel" width={900} height={1125} loading="lazy" className="aspect-[4/5] w-full rounded-lg object-cover" />
-            <img src={galleryItems[5].image} alt="Student playing piano during worship" width={900} height={1125} loading="lazy" className="mt-10 aspect-[4/5] w-full rounded-lg object-cover md:mt-12" />
+            <img src={galleryItems1} alt="Students praying together in the chapel" width={900} height={1125} loading="lazy" className="aspect-[4/5] w-full rounded-lg object-cover" />
+            <img src={galleryItems2} alt="Student playing piano during worship" width={900} height={1125} loading="lazy" className="mt-10 aspect-[4/5] w-full rounded-lg object-cover md:mt-12" />
           </div>
         </div>
       </section>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Instagram, Menu, X } from "lucide-react";
+import elizadeLogoAsset from "@/assets/download.jpg";
 
 import logoAsset from "@/assets/elizade-university-chapel-logo.png.asset.json";
 import { Button } from "@/components/ui/button";
@@ -19,7 +20,7 @@ export function ChapelNav() {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-line/70 bg-site/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-6">
         <Link to="/" aria-label="Elizade University Chapel home" onClick={() => setIsOpen(false)}>
-          <img src={logoAsset.url} alt="Elizade University Chapel" width={142} height={58} className="h-11 w-auto object-contain" />
+          <img src={elizadeLogoAsset} alt="Elizade University Chapel" width={142} height={58} className="h-11 w-auto object-contain" />
         </Link>
 
         <nav className="hidden items-center gap-8 sm:flex" aria-label="Primary navigation">
@@ -74,7 +75,7 @@ export function ChapelFooter() {
     <footer className="border-t border-line bg-navy py-16 text-primary-foreground sm:py-20">
       <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-6 md:grid-cols-[1.4fr_0.7fr_0.9fr] md:gap-16">
         <div className="max-w-sm">
-          <img src={logoAsset.url} alt="Elizade University Chapel" width={150} height={62} className="h-14 w-auto object-contain object-left" />
+          <img src={elizadeLogoAsset} alt="Elizade University Chapel" width={150} height={62} className="h-14 w-auto object-contain object-left" />
           <p className="mt-7 text-sm leading-relaxed text-primary-foreground/65">
             Building a community of students who know Christ, grow in faith and serve with purpose.
           </p>

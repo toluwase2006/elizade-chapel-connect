@@ -18,17 +18,37 @@ export const Route = createFileRoute("/giving")({
   component: GivingPage,
 });
 
-const accountNumber = "[Account Number]";
+const accountNumber = "0229687488";
 
 function GivingPage() {
   const [copied, setCopied] = useState(false);
 
   const copyAccountNumber = async () => {
+    let didCopy = false;
+
     try {
-      await navigator.clipboard.writeText(accountNumber);
+      if (navigator.clipboard) {
+        await navigator.clipboard.writeText(accountNumber);
+        didCopy = true;
+      }
     } catch {
-      // The confirmation remains useful in browsers where clipboard access is unavailable.
+      didCopy = false;
     }
+
+    if (!didCopy) {
+      const textArea = document.createElement("textarea");
+      textArea.value = accountNumber;
+      textArea.setAttribute("readonly", "");
+      textArea.style.position = "fixed";
+      textArea.style.opacity = "0";
+      document.body.appendChild(textArea);
+      textArea.select();
+      didCopy = document.execCommand("copy");
+      document.body.removeChild(textArea);
+    }
+
+    if (!didCopy) return;
+
     setCopied(true);
     window.setTimeout(() => setCopied(false), 2200);
   };
@@ -52,8 +72,8 @@ function GivingPage() {
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">The Chapel does not process online payments. Please use the official account details below when they have been confirmed by the Chapel.</p>
             </div>
             <dl className="mt-8 grid gap-7">
-              <div><dt className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Bank name</dt><dd className="mt-2 text-lg font-medium text-navy">[Bank Name]</dd></div>
-              <div><dt className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Account name</dt><dd className="mt-2 text-lg font-medium text-navy">[Account Name]</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Bank name</dt><dd className="mt-2 text-lg font-medium text-navy">WEMA BANK</dd></div>
+              <div><dt className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Account name</dt><dd className="mt-2 text-lg font-medium text-navy">ELIZADE UNIVERSITY CHAPEL</dd></div>
               <div className="border-t border-line pt-7"><dt className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Account number</dt><dd className="mt-2 break-all text-2xl font-medium tracking-wide text-navy">{accountNumber}</dd></div>
             </dl>
             <Button type="button" onClick={copyAccountNumber} className="mt-9 w-full rounded-sm bg-navy text-primary-foreground shadow-none hover:bg-navy-light"><span>{copied ? <Check className="size-4" /> : <Copy className="size-4" />}</span>{copied ? "Account number copied!" : "Copy account number"}</Button>
