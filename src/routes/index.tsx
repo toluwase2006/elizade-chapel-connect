@@ -26,10 +26,6 @@ function Index() {
       <section className="bg-site py-12 sm:py-20 lg:py-24">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 sm:px-6 lg:grid-cols-12 lg:gap-10">
           <div className="animate-chapel-rise lg:col-span-6">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-sm bg-navy/5 px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-navy">
-              <span className="size-1.5 rounded-full bg-gold motion-safe:animate-pulse" />
-              Ilara-Mokin, Nigeria
-            </div>
             <h1 className="max-w-xl text-balance text-4xl font-medium leading-tight text-navy sm:text-5xl lg:text-6xl">
               Welcome to Elizade University Chapel
             </h1>

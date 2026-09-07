@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Check, Copy } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import heroImage from "@/assets/chapel-prayer.jpg";
 
 export const Route = createFileRoute("/giving")({
   head: () => ({
@@ -56,10 +57,15 @@ function GivingPage() {
   return (
     <div>
       <section className="bg-navy py-20 text-primary-foreground sm:py-28">
-        <div className="mx-auto max-w-7xl px-5 sm:px-6">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold">Give with purpose</p>
-          <h1 className="mt-5 max-w-2xl text-4xl font-medium leading-tight sm:text-6xl">Support the work</h1>
-          <p className="mt-6 max-w-xl leading-relaxed text-primary-foreground/70">Your generosity helps support the work, activities, and ministry of Elizade University Chapel.</p>
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 sm:px-6 md:grid-cols-[1.05fr_0.95fr] md:gap-16">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold">Give with purpose</p>
+            <h1 className="mt-5 max-w-2xl text-4xl font-medium leading-tight sm:text-6xl">Support the work</h1>
+            <p className="mt-6 max-w-xl leading-relaxed text-primary-foreground/70">Your generosity helps support the work, activities, and ministry of Elizade University Chapel.</p>
+          </div>
+          <div className="overflow-hidden rounded-lg bg-navy-light ring-1 ring-primary-foreground/10">
+            <img src={heroImage} alt="A quiet moment of prayer in the Chapel community" width={1200} height={900} className="aspect-[4/3] w-full object-cover" />
+          </div>
         </div>
       </section>
 
