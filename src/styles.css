@@ -59,29 +59,43 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-site: var(--site);
+  --color-ink: var(--ink);
+  --color-navy: var(--navy);
+  --color-navy-light: var(--navy-light);
+  --color-gold: var(--gold);
+  --color-sky: var(--sky);
+  --color-line: var(--line);
 }
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --site: oklch(0.985 0.004 95);
+  --ink: oklch(0.22 0.025 250);
+  --navy: oklch(0.25 0.09 255);
+  --navy-light: oklch(0.34 0.105 255);
+  --gold: oklch(0.69 0.12 76);
+  --sky: oklch(0.965 0.018 245);
+  --line: oklch(0.89 0.018 245);
+  --background: var(--site);
+  --foreground: var(--ink);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: var(--ink);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
+  --popover-foreground: var(--ink);
+  --primary: var(--navy);
+  --primary-foreground: oklch(0.98 0.004 95);
+  --secondary: var(--sky);
+  --secondary-foreground: var(--navy);
+  --muted: var(--sky);
+  --muted-foreground: oklch(0.52 0.035 250);
+  --accent: oklch(0.94 0.035 76);
+  --accent-foreground: var(--navy);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--navy-light);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -140,5 +154,23 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: "Inter", sans-serif;
   }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility text-pretty {
+  text-wrap: pretty;
+}
+
+@keyframes chapel-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@utility animate-chapel-rise {
+  animation: chapel-rise 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
