@@ -6,11 +6,11 @@ import logoAsset from "@/assets/elizade-university-chapel-logo.png.asset.json";
 import { Button } from "@/components/ui/button";
 
 const navigation = [
-  { label: "Home", to: "/" as const },
-  { label: "About", to: "/about" as const },
-  { label: "Gallery", to: "/gallery" as const },
-  { label: "Giving", to: "/giving" as const },
-];
+  { label: "Home", to: "/" },
+  { label: "About", to: "/about" },
+  { label: "Gallery", to: "/gallery" },
+  { label: "Giving", to: "/giving" },
+] as const;
 
 export function ChapelNav() {
   const [isOpen, setIsOpen] = useState(false);
