@@ -11,8 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as BibleStudyRouteImport } from './routes/bible-study'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as GivingRouteImport } from './routes/giving'
+import { Route as ProverbialDigestRouteImport } from './routes/proverbial-digest'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,6 +25,16 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BibleStudyRoute = BibleStudyRouteImport.update({
+  id: '/bible-study',
+  path: '/bible-study',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GalleryRoute = GalleryRouteImport.update({
@@ -34,39 +47,78 @@ const GivingRoute = GivingRouteImport.update({
   path: '/giving',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProverbialDigestRoute = ProverbialDigestRouteImport.update({
+  id: '/proverbial-digest',
+  path: '/proverbial-digest',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/bible-study': typeof BibleStudyRoute
+  '/dashboard': typeof DashboardRoute
   '/gallery': typeof GalleryRoute
   '/giving': typeof GivingRoute
+  '/proverbial-digest': typeof ProverbialDigestRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/bible-study': typeof BibleStudyRoute
+  '/dashboard': typeof DashboardRoute
   '/gallery': typeof GalleryRoute
   '/giving': typeof GivingRoute
+  '/proverbial-digest': typeof ProverbialDigestRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/bible-study': typeof BibleStudyRoute
+  '/dashboard': typeof DashboardRoute
   '/gallery': typeof GalleryRoute
   '/giving': typeof GivingRoute
+  '/proverbial-digest': typeof ProverbialDigestRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/gallery' | '/giving'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/bible-study'
+    | '/dashboard'
+    | '/gallery'
+    | '/giving'
+    | '/proverbial-digest'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/gallery' | '/giving'
-  id: '__root__' | '/' | '/about' | '/gallery' | '/giving'
+  to:
+    | '/'
+    | '/about'
+    | '/bible-study'
+    | '/dashboard'
+    | '/gallery'
+    | '/giving'
+    | '/proverbial-digest'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/bible-study'
+    | '/dashboard'
+    | '/gallery'
+    | '/giving'
+    | '/proverbial-digest'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  BibleStudyRoute: typeof BibleStudyRoute
+  DashboardRoute: typeof DashboardRoute
   GalleryRoute: typeof GalleryRoute
   GivingRoute: typeof GivingRoute
+  ProverbialDigestRoute: typeof ProverbialDigestRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -85,6 +137,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bible-study': {
+      id: '/bible-study'
+      path: '/bible-study'
+      fullPath: '/bible-study'
+      preLoaderRoute: typeof BibleStudyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/gallery': {
       id: '/gallery'
       path: '/gallery'
@@ -99,14 +165,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GivingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/proverbial-digest': {
+      id: '/proverbial-digest'
+      path: '/proverbial-digest'
+      fullPath: '/proverbial-digest'
+      preLoaderRoute: typeof ProverbialDigestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  BibleStudyRoute: BibleStudyRoute,
+  DashboardRoute: DashboardRoute,
   GalleryRoute: GalleryRoute,
   GivingRoute: GivingRoute,
+  ProverbialDigestRoute: ProverbialDigestRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

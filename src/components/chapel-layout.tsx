@@ -10,6 +10,8 @@ const navigation = [
   { label: "Home", to: "/" },
   { label: "About", to: "/about" },
   { label: "Gallery", to: "/gallery" },
+  { label: "Bible Study", to: "/bible-study" },
+  { label: "Proverbial Digest", to: "/proverbial-digest" },
   { label: "Giving", to: "/giving" },
 ] as const;
 
@@ -23,7 +25,7 @@ export function ChapelNav() {
           <img src={elizadeLogoAsset} alt="Elizade University Chapel" width={142} height={58} className="h-11 w-auto object-contain" />
         </Link>
 
-        <nav className="hidden items-center gap-8 sm:flex" aria-label="Primary navigation">
+        <nav className="hidden items-center gap-5 lg:flex" aria-label="Primary navigation">
           {navigation.map((item) => (
             <Link
               key={item.label}
