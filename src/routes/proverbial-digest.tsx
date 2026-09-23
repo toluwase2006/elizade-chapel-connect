@@ -50,7 +50,7 @@ function ProverbialDigestPage() {
                 <div>
                   <div className="flex items-start gap-3"><Lightbulb className="mt-1 size-5 shrink-0 text-gold" /><h3 className="text-xl font-medium text-navy">{digest.proverb}</h3></div>
                   <p className="mt-3 leading-relaxed text-muted-foreground">{digest.reflection}</p>
-                  {digest.documentDataUrl && digest.documentName ? <a href={digest.documentDataUrl} download={digest.documentName} target="_blank" rel="noreferrer" className="mt-4 inline-flex text-sm font-semibold text-navy underline decoration-gold underline-offset-4 hover:text-navy-light">Open digest image</a> : null}
+                  {digest.documentDataUrl ? <a href={digest.documentDataUrl} target="_blank" rel="noreferrer" aria-label={`View ${digest.documentName ?? `${digest.day} digest`} in full size`} className="mt-5 block w-full max-w-md cursor-zoom-in"><img src={digest.documentDataUrl} alt={digest.documentName ?? `${digest.day} digest`} className="h-auto max-h-64 w-full rounded-md object-contain object-left shadow-sm" /></a> : null}
                 </div>
               </article>
             ))}
