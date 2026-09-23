@@ -1,6 +1,6 @@
 import { type BibleStudySession, type ProverbialDigest } from "@/lib/chapel-content";
 
-const CONTENT_API_URL = import.meta.env["VITE_API_URL"] ?? "http://localhost:5000/api/content";
+const CONTENT_API_URL = import.meta.env["VITE_API_URL"] ?? "https://elizadechapel-backend-production.up.railway.app/api/content";
 
 async function requestContent<T>(type: string, options?: RequestInit) {
   const response = await fetch(`${CONTENT_API_URL}/${type}`, {
