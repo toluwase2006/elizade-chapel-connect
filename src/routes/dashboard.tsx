@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { BookOpen, CalendarDays, LayoutDashboard, Lightbulb, Save, Trash2 } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,6 +35,8 @@ function DashboardPage() {
   const [sessions, setSessions] = useState<BibleStudySession[]>(() => [...bibleStudySessions]);
   const [digests, setDigests] = useState<ProverbialDigest[]>(() => [...proverbialDigests]);
   const [notice, setNotice] = useState("");
+  const [isPublishingStudy, setIsPublishingStudy] = useState(false);
+  const [isPublishingDigest, setIsPublishingDigest] = useState(false);
 
   useEffect(() => {
     void Promise.all([loadBibleStudySessions(), loadProverbialDigests()]).then(([nextSessions, nextDigests]) => {
@@ -48,24 +51,37 @@ function DashboardPage() {
     const form = new FormData(event.currentTarget);
     const documentFiles = form.getAll("study-document").filter((value): value is File => value instanceof File && value.size > 0);
     if (documentFiles.length === 0) {
-      setNotice("Choose at least one Bible Study document before publishing.");
+      const message = "Choose at least one Bible Study document before publishing.";
+      setNotice(message);
+      toast.error(message);
       return;
     }
-    const day = String(form.get("study-day"));
-    const newSessions = await Promise.all(documentFiles.map(async (documentFile) => createBibleStudySession({
-      id: `bible-study-${day.toLowerCase()}-${createEntryId()}`,
-      day,
-      time: String(form.get("study-time")),
-      title: String(form.get("study-title")),
-      scripture: String(form.get("study-scripture")),
-      summary: String(form.get("study-summary")),
-      documentName: documentFile.name,
-      documentDataUrl: await fileToDataUrl(documentFile),
-    } satisfies BibleStudySession)));
-    const nextSessions = [...sessions, ...newSessions].sort((a, b) => studyDays.indexOf(a.day) - studyDays.indexOf(b.day));
-    setSessions(nextSessions);
-    setNotice(`${documentFiles.length} ${day} Bible Study document${documentFiles.length === 1 ? "" : "s"} published.`);
-    formElement.reset();
+    try {
+      setIsPublishingStudy(true);
+      const day = String(form.get("study-day"));
+      const newSessions = await Promise.all(documentFiles.map(async (documentFile) => createBibleStudySession({
+        id: `bible-study-${day.toLowerCase()}-${createEntryId()}`,
+        day,
+        time: String(form.get("study-time")),
+        title: String(form.get("study-title")),
+        scripture: String(form.get("study-scripture")),
+        summary: String(form.get("study-summary")),
+        documentName: documentFile.name,
+        documentDataUrl: await fileToDataUrl(documentFile),
+      } satisfies BibleStudySession)));
+      const nextSessions = [...sessions, ...newSessions].sort((a, b) => studyDays.indexOf(a.day) - studyDays.indexOf(b.day));
+      setSessions(nextSessions);
+      const message = `${documentFiles.length} ${day} Bible Study document${documentFiles.length === 1 ? "" : "s"} published.`;
+      setNotice(message);
+      toast.success(message);
+      formElement.reset();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unable to publish the Bible Study.";
+      setNotice(message);
+      toast.error(message);
+    } finally {
+      setIsPublishingStudy(false);
+    }
   };
 
   const publishDigest = async (event: FormEvent<HTMLFormElement>) => {
@@ -74,36 +90,59 @@ function DashboardPage() {
     const form = new FormData(event.currentTarget);
     const documentFiles = form.getAll("digest-document").filter((value): value is File => value instanceof File && value.size > 0);
     if (documentFiles.length === 0) {
-      setNotice("Choose at least one Proverbial Digest document before publishing.");
+      const message = "Choose at least one Proverbial Digest document before publishing.";
+      setNotice(message);
+      toast.error(message);
       return;
     }
-    const day = String(form.get("digest-day"));
-    const newDigests = await Promise.all(documentFiles.map(async (documentFile) => createProverbialDigest({
-      id: `digest-${day.toLowerCase()}-${createEntryId()}`,
-      day,
-      proverb: String(form.get("digest-proverb")),
-      reflection: String(form.get("digest-reflection")),
-      documentName: documentFile.name,
-      documentDataUrl: await fileToDataUrl(documentFile),
-    } satisfies ProverbialDigest)));
-    const nextDigests = [...digests, ...newDigests].sort((a, b) => digestDays.indexOf(a.day) - digestDays.indexOf(b.day));
-    setDigests(nextDigests);
-    setNotice(`${documentFiles.length} ${day} Proverbial Digest document${documentFiles.length === 1 ? "" : "s"} published.`);
-    formElement.reset();
+    try {
+      setIsPublishingDigest(true);
+      const day = String(form.get("digest-day"));
+      const newDigests = await Promise.all(documentFiles.map(async (documentFile) => createProverbialDigest({
+        id: `digest-${day.toLowerCase()}-${createEntryId()}`,
+        day,
+        proverb: String(form.get("digest-proverb")),
+        reflection: String(form.get("digest-reflection")),
+        documentName: documentFile.name,
+        documentDataUrl: await fileToDataUrl(documentFile),
+      } satisfies ProverbialDigest)));
+      const nextDigests = [...digests, ...newDigests].sort((a, b) => digestDays.indexOf(a.day) - digestDays.indexOf(b.day));
+      setDigests(nextDigests);
+      const message = `${documentFiles.length} ${day} Proverbial Digest document${documentFiles.length === 1 ? "" : "s"} published.`;
+      setNotice(message);
+      toast.success(message);
+      formElement.reset();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unable to publish the Proverbial Digest.";
+      setNotice(message);
+      toast.error(message);
+    } finally {
+      setIsPublishingDigest(false);
+    }
   };
 
   const removeStudy = (id: string) => {
     void deleteBibleStudySession(id).then(() => {
       setSessions((current) => current.filter((session) => session.id !== id));
-      setNotice("Bible Study entry removed.");
-    }).catch((error: Error) => setNotice(error.message));
+      const message = "Bible Study entry removed.";
+      setNotice(message);
+      toast.success(message);
+    }).catch((error: Error) => {
+      setNotice(error.message);
+      toast.error(error.message);
+    });
   };
 
   const removeDigest = (id: string) => {
     void deleteProverbialDigest(id).then(() => {
       setDigests((current) => current.filter((digest) => digest.id !== id));
-      setNotice("Digest entry removed.");
-    }).catch((error: Error) => setNotice(error.message));
+      const message = "Digest entry removed.";
+      setNotice(message);
+      toast.success(message);
+    }).catch((error: Error) => {
+      setNotice(error.message);
+      toast.error(error.message);
+    });
   };
 
   return (
@@ -131,7 +170,7 @@ function DashboardPage() {
               <div className="grid gap-2"><Label htmlFor="study-scripture">Scripture</Label><Input id="study-scripture" name="study-scripture" required placeholder="John 15:1-11" /></div>
               <div className="grid gap-2"><Label htmlFor="study-summary">Description</Label><Textarea id="study-summary" name="study-summary" required placeholder="What will students explore?" /></div>
               <div className="grid gap-2"><Label htmlFor="study-document">Study documents</Label><Input id="study-document" name="study-document" type="file" accept=".pdf,.doc,.docx,.txt,.md" multiple required /><p className="text-xs text-muted-foreground">Upload one or more study notes as PDF, Word, Markdown, or text documents.</p></div>
-              <Button type="submit" className="rounded-sm bg-navy text-primary-foreground shadow-none hover:bg-navy-light"><Save className="size-4" />Publish Bible Study</Button>
+              <Button type="submit" disabled={isPublishingStudy} className="rounded-sm bg-navy text-primary-foreground shadow-none hover:bg-navy-light"><Save className="size-4" />{isPublishingStudy ? "Publishing..." : "Publish Bible Study"}</Button>
             </form>
             <div className="mt-9 border-t border-line pt-6"><p className="text-xs font-bold uppercase tracking-[0.14em] text-gold">Published studies</p><div className="mt-4 grid gap-3">{sessions.map((session) => <PublishedRow key={session.id} label={`${session.day} · ${session.title}`} onRemove={() => removeStudy(session.id)} />)}</div></div>
           </section>
@@ -143,14 +182,14 @@ function DashboardPage() {
               <div className="grid gap-2"><Label htmlFor="digest-day">Day</Label><select id="digest-day" name="digest-day" defaultValue="Monday" className="h-10 rounded-md border border-input bg-background px-3 text-sm text-foreground">{digestDays.map((day) => <option key={day}>{day}</option>)}</select></div>
               <div className="grid gap-2"><Label htmlFor="digest-proverb">Proverb</Label><Textarea id="digest-proverb" name="digest-proverb" required placeholder="Write the day's proverb" /></div>
               <div className="grid gap-2"><Label htmlFor="digest-reflection">Reflection</Label><Textarea id="digest-reflection" name="digest-reflection" required placeholder="Add a short reflection" /></div>
-              <div className="grid gap-2"><Label htmlFor="digest-document">Digest documents</Label><Input id="digest-document" name="digest-document" type="file" accept=".pdf,.doc,.docx,.txt,.md" multiple required /><p className="text-xs text-muted-foreground">Upload one or more daily digests as PDF, Word, Markdown, or text documents.</p></div>
-              <Button type="submit" className="rounded-sm bg-navy text-primary-foreground shadow-none hover:bg-navy-light"><Save className="size-4" />Publish Digest</Button>
+              <div className="grid gap-2"><Label htmlFor="digest-document">Digest images</Label><Input id="digest-document" name="digest-document" type="file" accept="image/*" multiple required /><p className="text-xs text-muted-foreground">Upload one or more daily digest images.</p></div>
+              <Button type="submit" disabled={isPublishingDigest} className="rounded-sm bg-navy text-primary-foreground shadow-none hover:bg-navy-light"><Save className="size-4" />{isPublishingDigest ? "Publishing..." : "Publish Digest"}</Button>
             </form>
             <div className="mt-9 border-t border-line pt-6"><p className="text-xs font-bold uppercase tracking-[0.14em] text-gold">Published digest</p><div className="mt-4 grid gap-3">{digests.map((digest) => <PublishedRow key={digest.id} label={`${digest.day} · ${digest.proverb}`} onRemove={() => removeDigest(digest.id)} />)}</div></div>
           </section>
         </div>
 
-        <div className="mt-8 flex items-start gap-3 rounded-md border border-navy/10 bg-card px-5 py-4 text-sm text-muted-foreground"><CalendarDays className="mt-0.5 size-4 shrink-0 text-gold" /><p>This dashboard currently stores content in this browser only. A shared multi-user dashboard needs a database and authentication before deployment.</p></div>
+        <div className="mt-8 flex items-start gap-3 rounded-md border border-navy/10 bg-card px-5 py-4 text-sm text-muted-foreground"><CalendarDays className="mt-0.5 size-4 shrink-0 text-gold" /><p>Published content is stored in the Chapel backend and appears on the public pages after a successful upload.</p></div>
       </div>
     </div>
   );
